@@ -10,7 +10,8 @@ var HeadlineSchema = new Schema({
   title: {
     type: String,
     required: true,
-    trim:true
+    trim:true, 
+    unique:true
   },
   // `link` is required and of type String
   link: {
@@ -22,6 +23,10 @@ var HeadlineSchema = new Schema({
     type: String,
     required: true,
     trim:true
+  }, 
+  created: {
+    type:Date,
+    default: Date.now
   }
   // `note` is an object that stores a Note id
   // The ref property links the ObjectId to the Note model
