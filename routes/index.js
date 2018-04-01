@@ -8,7 +8,7 @@ var app = express();
 //Require all models
 var db = require("../models");
 
-//A GET route for scraping the BuzzFeed News Website
+//A GET route for scraping the E! News Website
 app.get("/", function(req, res) {
 	//First, we grab the body of the html with request
 	request("http://www.eonline.com/news", function(error, response, html) {
@@ -20,13 +20,16 @@ app.get("/", function(req, res) {
 			//Save an empty result object
 			var result = {};
 
-			//Add the text and href of every link, and save them as properties of the result object
+			//Add the text, href and img of every link, and save them as properties of the result object
 			result.title = $(this)
 				.children(".articleTitle")
 				.text();
 			result.link = $(this)
-				.children("a.articleTitle")
+				.children(".articleTitle")
 				.attr("href");
+			result.pic = $(".thumbnail")
+				.children("img")
+				.attr("src");
 			//Create a new Headline using the 'result' object built from scraping
 			db.Headline.create(result)
 			.then(function(dbHeadline) {
