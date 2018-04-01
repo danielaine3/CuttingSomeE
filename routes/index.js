@@ -8,43 +8,55 @@ var app = express();
 //Require all models
 var db = require("../models");
 
-//A GET route for scraping the E! News Website
-app.get("/", function(req, res) {
-	//First, we grab the body of the html with request
-	request("http://www.eonline.com/news", function(error, response, html) {
-		//Then, we load that into cheerio and save it to $ for a shorthand select
-		var $ = cheerio.load(html);
-
-		//Now we grab every story-card tag, and do the following: 
-		$("h3").each(function(i, element) {
-			//Save an empty result object
-			var result = {};
-
-			//Add the text, href and img of every link, and save them as properties of the result object
-			result.title = $(this)
-				.children(".articleTitle")
-				.text();
-			result.link = $(this)
-				.children(".articleTitle")
-				.attr("href");
-			result.pic = $(".thumbnail")
-				.children("img")
-				.attr("src");
-			//Create a new Headline using the 'result' object built from scraping
-			db.Headline.create(result)
-			.then(function(dbHeadline) {
-				//view the added result in the console
-				console.log(dbHeadline);
-			})
-			.catch(function(err) {
-				//If an error occured, send it to the client
-				return res.json(err);
-			});
+//Route to get all Headlines from the db
+app.get("/headlines", function(req, res) {
+	//Grabe every document in the Headlines collection
+	db.Headline.find({})
+		.then(function(dbHeadline) {
+			//If we were able to successfully find Headlines, send them back to the client
+			res.json(dbHeadline);
+		})
+		.catch(function(err) {
+			//If error, send it to client
+			res.json(err);
 		});
-		//If scrape successful, save an Headline, send message to the client
-		res.send("Scrape Complete");
-	});
+});
 
+//Route for grabbing a Headline by id, populated with any  notes
+app.get("headlines/:id", function(req, res) {
+	db.Headline.findOne({_id:req.params.id})
+		//and populate all of the associated notes
+		.populate("note")
+		.then(function(dbHeadline) {
+			//if successful, send headline back to client
+			res.json(dbHeadline);
+		})
+		.catch(function(err) {
+			//If err, send to client
+			res.json(err);
+		});
+});
+
+//Route for saving/updating a Headlines's associated note
+app.post("/articles/:id", function(req, res) {
+	//Create a new note an pass the rew.body to the entry
+	db.Note.create(req.body)
+		.then(function(dbNote) {
+		// If a Note was created successfully, find one Article with an `_id` equal to `req.params.id`. 
+		// Update the Article to be associated with the new Note { new: true } tells the query that 
+		// we want it to return the updated User -- it returns the original by default
+      	// Since our mongoose query returns a promise, we can chain another `.then` which 
+      	// receives the result of the query
+      		return db.Headline.findOneAndUpdate({ _id: req.params.id}, { note:dbNote._id }, { new:true });
+		})
+		.then(function(dbHeadline) {
+			//Id updated successful, send back to client
+			res.json(dbHeadline);
+		})
+		.catch(function(err) {
+			//If error, send to client
+			res.json(err);
+		});
 });
 
 module.exports = app;
