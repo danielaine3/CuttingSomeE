@@ -27,9 +27,9 @@ app.get("/", function(req, res) {
 			result.link = $(this)
 				.children(".articleTitle")
 				.attr("href");
-			result.pic = $(".thumbnail")
-				.children("img")
-				.attr("src");
+			// result.pic = $(".thumbnail")
+			// 	.children("img")
+			// 	.attr("src");
 			//Create a new Headline using the 'result' object built from scraping
 			db.Headline.create(result)
 			.then(function(dbHeadline) {
@@ -48,3 +48,6 @@ app.get("/", function(req, res) {
 });
 
 module.exports = app;
+
+
+

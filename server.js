@@ -34,6 +34,9 @@ app.set("view engine", "handlebars");
 var routes =require("./routes/index.js");
 app.use(routes);
 
+var scripts = require("./scripts/scrape.js");
+app.use(scripts);
+
 //If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
 //By defaul mongoose uses callbacks for async queries

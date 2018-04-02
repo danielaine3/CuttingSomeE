@@ -1,26 +1,3 @@
-//Grab the headlines as a json
-$.getJSON("/headlines", function(data) {
-	//For each one
-	for (var i = 0; i < data.length; i++) {
-		//Display the informaiton on the page
-		$("#articles").append("<p data-id='" + data[i]._id + "'>" 
-			+ data[i].title + "<br />" + data[i].link + "</p>");
-	}
-});
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // var request = require("request");
 // var cheerio = require("cheerio");
 // var express = require("express");
@@ -84,4 +61,3 @@ $.getJSON("/headlines", function(data) {
 // });
 
 // module.exports = app;
-
