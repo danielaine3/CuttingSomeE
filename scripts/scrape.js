@@ -9,12 +9,12 @@ var app = express();
 var db = require("../models");
 
 //A GET route for scraping the E! News Website
-app.get("/", function(req, res) {
+app.get("/headlines", function(req, res) {
 	//First, we grab the body of the html with request
 	request("http://www.eonline.com/news", function(error, response, html) {
 		//Then, we load that into cheerio and save it to $ for a shorthand select
 		var $ = cheerio.load(html);
-
+		
 		//Now we grab every story-card tag, and do the following: 
 		$("h3").each(function(i, element) {
 			//Save an empty result object
@@ -42,7 +42,7 @@ app.get("/", function(req, res) {
 			});
 		});
 		//If scrape successful, save an Headline, send message to the client
-		res.send("Scrape Complete");
+		res.render("/headlines");
 	});
 
 });

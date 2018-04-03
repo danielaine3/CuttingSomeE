@@ -9,14 +9,14 @@ var HeadlineSchema = new Schema({
   // `title` is required and of type String
   title: {
     type: String,
-    required: true,
+    // required: true,
     trim:true, 
     // unique:true
   },
   // `link` is required and of type String
   link: {
     type: String,
-    required: true,
+    // required: true,
     trim:true
   },
   created: {
