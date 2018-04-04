@@ -2,6 +2,7 @@
 var express = require("express");
 var bodyParser= require("body-parser");
 var mongoose = require("mongoose");
+var logger = require("morgan");
 
 //Initialize Express
 var app = express();
@@ -19,9 +20,11 @@ var app = express();
 
 //CONGIGURE MIDDLEWARE
 //Use morgan logger for logging requests
-// app.use(logger("dev"));
+app.use(logger("dev"));
 //Use body-parser for handling form submissions
 app.use(bodyParser.urlencoded({extended:true}));
+//parse json
+app.use(bodyParser.json());
 //Use express.static to serve the public folder as a static directory
 app.use(express.static("public"));
 
@@ -31,8 +34,8 @@ app.engine("handlebars", exphbs({ defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
 // Import routes and give server access to them
-var routes =require("./routes/index.js");
-app.use(routes);
+// var routes =require("./routes/index.js");
+// app.use(routes);
 
 var scripts = require("./scripts/scrape.js");
 app.use(scripts);

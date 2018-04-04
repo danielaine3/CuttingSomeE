@@ -1,13 +1,33 @@
-//Require all models
-var db = require("../models");
+// //Require all models
+// var db = require("../models");
 
 var request = require("request");
 var cheerio = require("cheerio");
 // var express = require("express");
 
+var scrape = function() {
+
+	return request("http://www.eonline.com/news", function(error, response, html) {
+		var $ = cheerio.load(html);
+		var articles = [];
+
+		$("h3").each(function(i, element) {
+			result.title = $(this).children(".articleTitle").text();
+			result.link = $(this).children(".articleTitle").attr("href");
+
+		}
+
+
+	}
+
+}
+
+
+
+
 // //Initialize Express
-// var app = express();
-module.exports = function(app) {
+// var router = express.Router();
+// module.exports = function(app) {
 	//A GET route for scraping the E! News Website
 	app.get("/headlines", function(req, res) {
 		//First, we grab the body of the html with request
@@ -21,12 +41,8 @@ module.exports = function(app) {
 				var result = {};
 
 				//Add the text, href and img of every link, and save them as properties of the result object
-				result.title = $(this)
-					.children(".articleTitle")
-					.text();
-				result.link = $(this)
-					.children(".articleTitle")
-					.attr("href");
+				result.title = $(this).children(".articleTitle").text();
+				result.link = $(this).children(".articleTitle").attr("href");
 				// result.pic = $(".thumbnail")
 				// 	.children("img")
 				// 	.attr("src");
