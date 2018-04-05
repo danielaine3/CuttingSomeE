@@ -1,17 +1,27 @@
-//Whenever someone clicks the scrapte button
+//Whenever someone clicks the scrape button
 $(document).on("click", "#scrape", function() {
-	
 	$.getJSON("/headlines", function(data) {
 		//For each one
 		for (var i = 0; i < data.length; i++) {
-			//Display the informaiton on the page
-			$("#articles").append("<div><p class='title'>" + data[i].title + 
-				"</p><p><img src='" + data[i].pic + 
-				"'></p><p class='link'>www.eonline.com" + data[i].link + "</p><br/><br/>");
+			//Display the information on the page
+			$("#articles").append("<div><p><img src='" + data[i].pic + "'></p><p class='title'>" + data[i].title + 
+				"</p><p class='link'>www.eonline.com" + data[i].link + "</p><button class='save-it'>Save Article</button><br/><br/></div>");
 		}
 	});
+});
 
-
+$(document).on("click", ".save-it", function() {
+	$.getJSON("/saved", function(data) {
+		//For each one
+		for (var i = 0; i < data.length; i++) {
+			//Display the information on the page
+			$("#saved").append("<div></p><p><img src='" + data[i].pic + 
+				"<p class='title'>" + data[i].title + 
+				"</p><p class='link'>www.eonline.com" + data[i].link + 
+				"</p><button class='add-note'>Save Article</button><br/><br/>");
+		}
+	});
+});
 
 
 
@@ -40,7 +50,7 @@ $(document).on("click", "#scrape", function() {
 	// 	// 	$("#bodyinput").val(data.note.body);
 	// 	// }
 	// });
-});
+// });
 
 //When you click on the savenote button
 $(document).on('click', "#saved", function() {

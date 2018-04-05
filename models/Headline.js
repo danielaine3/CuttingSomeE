@@ -11,7 +11,7 @@ var HeadlineSchema = new Schema({
     type: String,
     // required: true,
     trim:true, 
-    // unique:true
+    unique:true
   },
   // `link` is required and of type String
   link: {
