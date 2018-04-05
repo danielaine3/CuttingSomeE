@@ -77,7 +77,7 @@ app.get("/headlines", function(req,res) {
 			result.title = $(this).children(".title").children("h3").children(".articleTitle").text();
 			result.pic = $(this).children(".thumbnail").children("img").attr("src");
 			result.link = $(this).children(".thumbnail").attr("href");
-
+			
 			//Create a new Headline using the 'result' object built from scraping
 			db.Headline.create(result)
 			.then(function(dbHeadline) {
@@ -112,13 +112,14 @@ app.get("/headlines", function(req,res) {
 
 //Route for grabbing saved headlines from the DB
 app.get("/saved", function(req, res) {
-	db.Headline.find({})
-	.then(function(dbHeadline) {
-		res.json(dbHeadline);
-	})
-	.catch(function(err) {
-		res.json(err);
-	});
+	// db.Headline.find({})
+	// .then(function(dbHeadline) {
+	// 	res.json(dbHeadline);
+	// })
+	// .catch(function(err) {
+	// 	res.json(err);
+	// });
+	res.render("saved");
 });
 
 //Route for grabbing a specific headline by id, pop ulate it with a note

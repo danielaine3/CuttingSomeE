@@ -2,16 +2,18 @@
 $(document).on("click", "#scrape", function() {
 	$.getJSON("/headlines", function(data) {
 		//For each one
-		for (var i = 0; i < data.length; i++) {
+		for (var i = 1; i < data.length; i++) {
 			//Display the information on the page
-			$("#articles").append("<div><p><img src='" + data[i].pic + "'></p><p class='title'>" + data[i].title + 
-				"</p><p class='link'>www.eonline.com" + data[i].link + "</p><button class='save-it'>Save Article</button><br/><br/></div>");
+			$("#articles").append("<p><img src='" 
+				+ data[i].pic + "'></p><p class='title'>" 
+				+ data[i].title + "</p><a class='link' href='" + data[i].link + "'><p>www.eonline.com" 
+				+ data[i].link + "</p></a><button class='save-it'>Save Article</button><br/><br/>");
 		}
 	});
 });
 
 $(document).on("click", ".save-it", function() {
-	$.getJSON("/saved", function(data) {
+	$.getJSON("/", function(data) {
 		//For each one
 		for (var i = 0; i < data.length; i++) {
 			//Display the information on the page
@@ -22,6 +24,10 @@ $(document).on("click", ".save-it", function() {
 		}
 	});
 });
+
+// $(document).on("click", "#saved", function(req, res) {
+// 	res.redirect("saved");
+// })
 
 
 
@@ -53,33 +59,33 @@ $(document).on("click", ".save-it", function() {
 // });
 
 //When you click on the savenote button
-$(document).on('click', "#saved", function() {
-	//Grab the id associated with the article form the submit button
-	var thisId = $(this).attr("data-id");
+// $(document).on('click', "#saved", function() {
+// 	//Grab the id associated with the article form the submit button
+// 	var thisId = $(this).attr("data-id");
 
-	//Run a POST request to change the note, using what's enetered in the inputs
-	$.ajax({
-		method:"POST",
-		url:"/headlines/" + thisId,
-		data: {
-			//value taken from title input
-			title: $("#titleinput").val(),
-			//Value taken from note textarea
-			body: $("#bodyinput").val()
-		}
-	})
-	//With that done
-	.then(function(data) {
-		//log the response
-		console.log(data);
-		//Empty the notes section
-		$("#notes").empty();
-	});
+// 	//Run a POST request to change the note, using what's enetered in the inputs
+// 	$.ajax({
+// 		method:"POST",
+// 		url:"/headlines/" + thisId,
+// 		data: {
+// 			//value taken from title input
+// 			title: $("#titleinput").val(),
+// 			//Value taken from note textarea
+// 			body: $("#bodyinput").val()
+// 		}
+// 	})
+// 	//With that done
+// 	.then(function(data) {
+// 		//log the response
+// 		console.log(data);
+// 		//Empty the notes section
+// 		$("#notes").empty();
+// 	});
 
-	//Also, remove the values entered in the input and textarea for note entry
-	$("#titleinput").val("");
-	$("#bodyinput").val("");
-});
+// 	//Also, remove the values entered in the input and textarea for note entry
+// 	$("#titleinput").val("");
+// 	$("#bodyinput").val("");
+// });
 
 
 // //Grab the headlines as a json
