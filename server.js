@@ -78,8 +78,8 @@ app.get("/headlines", function(req,res) {
 
 			//Add the text, href and img of every link, and save them as properties of the result object
 			result.title = $(this).children(".title").children("h3").children(".articleTitle").text();
-			result.link = $(this).children(".thumbnail").attr("href");
 			result.pic = $(this).children(".thumbnail").children("img").attr("src");
+			result.link = $(this).children(".thumbnail").attr("href");
 
 			//Create a new Headline using the 'result' object built from scraping
 			db.Headline.create(result)

@@ -5,8 +5,9 @@ $(document).on("click", "#scrape", function() {
 		//For each one
 		for (var i = 0; i < data.length; i++) {
 			//Display the informaiton on the page
-			$("#articles").append("<p data-id='" + data[i]._id + "'>" 
-				+ data[i].title + "<br/>" + data[i].link + "<br/><img src='" + data[i].pic + "'></p>");
+			$("#articles").append("<p>" + data[i].title + 
+				"<br/><img src='" + data[i].pic + 
+				"'><br/>www.eonline.com" + data[i].link + "</p><br/><br/>");
 		}
 	});
 

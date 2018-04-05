@@ -19,6 +19,11 @@ var HeadlineSchema = new Schema({
     // required: true,
     trim:true
   },
+  //`pic` is required and of type String
+  pic: {
+    type:String,
+    trim:true
+  },
   created: {
     type:Date,
     default: Date.now
