@@ -81,34 +81,34 @@ app.get("/headlines", function(req,res) {
 			result.pic = $(this).children(".thumbnail").children("img").attr("src");
 			result.link = $(this).children(".thumbnail").attr("href");
 
-			//Create a new Headline using the 'result' object built from scraping
-			db.Headline.create(result)
-			.then(function(dbHeadline) {
-				//view the added result in the console
-				console.log(dbHeadline);
-			})
-			.catch(function(err) {
-				//If error occurred, send to client
-				// return res.json(err);
-				console.log(err.message);
-			});
+		// 	//Create a new Headline using the 'result' object built from scraping
+		// 	db.Headline.create(result)
+		// 	.then(function(dbHeadline) {
+		// 		//view the added result in the console
+		// 		console.log(dbHeadline);
+		// 	})
+		// 	.catch(function(err) {
+		// 		//If error occurred, send to client
+		// 		// return res.json(err);
+		// 		console.log(err.message);
+		// 	});
 		});
 		//If scrape successful, save an Headline, send message to the client
 		// res.render("home");
 	});
 
-	//Route for getting all Headlines from the db
-	db.Headline.find({})
-	.then(function(dbHeadline) {
-		console.log(dbHeadline)
-		// var hbObject = {Headline: dbHeadline};
-		// res.render ("home", hbObject);
-		res.json(dbHeadline);
-	})
-	.catch(function(err) {
-		//If error occurred, send to client
-		res.json(err);
-	});	
+	// //Route for getting all Headlines from the db
+	// db.Headline.find({})
+	// .then(function(dbHeadline) {
+	// 	console.log(dbHeadline)
+	// 	// var hbObject = {Headline: dbHeadline};
+	// 	// res.render ("home", hbObject);
+	// 	res.json(dbHeadline);
+	// })
+	// .catch(function(err) {
+	// 	//If error occurred, send to client
+	// 	res.json(err);
+	// });	
 
 });
 
