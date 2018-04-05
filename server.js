@@ -37,8 +37,8 @@ app.set("view engine", "handlebars");
 // var routes =require("./routes/index.js");
 // app.use(routes);
 
-var scripts = require("./scripts/scrape.js");
-app.use(scripts);
+// var scripts = require("./scripts/scrape.js");
+// app.use(scripts);
 
 // var public = require("./public/app.js");
 // app.use(public);
@@ -60,3 +60,98 @@ var PORT = 3000;
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
 });
+
+app.get("/", function(req, res) {
+	res.render("home");
+})
+
+app.get("/headlines", function(req,res) {
+	//First, we grab the body of the html with request
+	request("http://www.eonline.com/news", function(error, response, html) {
+		//Then, we load that into cheerio and save it to $ for a shorthand select
+		var $ = cheerio.load(html);
+		
+		//Now we grab every story-card tag, and do the following: 
+		$("h3").each(function(i, element) {
+			//Save an empty result object
+			var result = {};
+
+			//Add the text, href and img of every link, and save them as properties of the result object
+			result.title = $(this).children(".articleTitle").text();
+			result.link = $(this).children(".articleTitle").attr("href");
+			// result.pic = $(".thumbnail")
+			// 	.children("img")
+			// 	.attr("src");
+
+			//Create a new Headline using the 'result' object built from scraping
+			db.Headline.create(result)
+			.then(function(dbHeadline) {
+				//view the added result in the console
+				console.log(dbHeadline);
+			})
+			.catch(function(err) {
+				//If error occurred, send to client
+				// return res.json(err);
+				console.log(err.message);
+			});
+		});
+		//If scrape successful, save an Headline, send message to the client
+		// res.render("home");
+	});
+
+	//Route for getting all Headlines from the db
+	db.Headline.find({})
+	.then(function(dbHeadline) {
+		console.log(dbHeadline)
+		// var hbObject = {Headline: dbHeadline};
+		// res.render ("home", hbObject);
+		res.json(dbHeadline);
+	})
+	.catch(function(err) {
+		//If error occurred, send to client
+		res.json(err);
+	});	
+
+});
+
+//Route for grabbing saved headlines from the DB
+app.get("/saved", function(req, res) {
+	db.Headline.find({})
+	.then(function(dbHeadline) {
+		res.json(dbHeadline);
+	})
+	.catch(function(err) {
+		res.json(err);
+	});
+});
+
+//Route for grabbing a specific headline by id, pop ulate it with a note
+app.get("/headlines/:id", function(req, res) {
+	db.Headline.findOne({_id:req.params.id})
+	.populate("note")
+	.then(function(dbHeadline) {
+		res.json(dbArticle);
+	})
+	.catch(function(err) {
+		res.json(err);
+	});
+});	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
