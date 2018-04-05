@@ -72,16 +72,14 @@ app.get("/headlines", function(req,res) {
 		var $ = cheerio.load(html);
 		
 		//Now we grab every story-card tag, and do the following: 
-		$("h3").each(function(i, element) {
+		$(".clear").each(function(i, element) {
 			//Save an empty result object
 			var result = {};
 
 			//Add the text, href and img of every link, and save them as properties of the result object
-			result.title = $(this).children(".articleTitle").text();
-			result.link = $(this).children(".articleTitle").attr("href");
-			// result.pic = $(".thumbnail")
-			// 	.children("img")
-			// 	.attr("src");
+			result.title = $(this).children(".title").children("h3").children(".articleTitle").text();
+			result.link = $(this).children(".thumbnail").attr("href");
+			result.pic = $(this).children(".thumbnail").children("img").attr("src");
 
 			//Create a new Headline using the 'result' object built from scraping
 			db.Headline.create(result)
@@ -136,22 +134,4 @@ app.get("/headlines/:id", function(req, res) {
 		res.json(err);
 	});
 });	
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
