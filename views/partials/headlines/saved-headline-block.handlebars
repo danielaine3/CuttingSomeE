@@ -1,10 +1,8 @@
 <div id="navbar">
 	<ul>
-		<li><button class="main-button" id="save">SAVED <img class="elogo" src="./assets/images/E!.png"></button></li>
-		<li><button class="main-button" id="scrape">CUT NEW<img class="elogo" src="./assets/images/E!.png"></button></li>
+		<li><button class="main-button" id="home">HOM<img class="elogo" src="./assets/images/E!.png"></button></li>
 	</ul>
 </div>
-
 {{#each headline}}
 	<div class="card">
 		<div class="card-body">
@@ -14,7 +12,8 @@
 			<br>
 			<a class="link" href="www.eonline.com" + {{this.link}}>www.eonline.com{{this.link}}</a>
 			<br>
-			<a><button class="save-it" data-id="{{this._id}}">Save Headline</button></a>
+			<a><button class="remove-save" data-id="{{this._id}}">Delete Headline</button></a>
+			<a><button class="remove-save" data-id="{{this._id}}">Comment</button></a>
 			<br><br>
 		</div>
 	</div>

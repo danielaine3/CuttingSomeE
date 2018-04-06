@@ -58,7 +58,7 @@ module.exports = function(app) {
 
 	//Save/unsave function
 	function updateSave(saved, req, res) {
-		db.Headlines.findOneAndUpdate({ _id: req.params.id }, { saved: saved}, 
+		db.Headline.findOneAndUpdate({ _id: req.params.id }, { saved: saved}, 
 			function(err, data) {
 				if(err) {
 					console.log(err);

@@ -28,7 +28,7 @@ $("#scrape").on("click", function(event) {
 				//If using modal/alert
 			})
 		})
-		// $("#articles").append(data);
+		location.reload();
 	});
 });
 
@@ -49,7 +49,18 @@ $(".save-it").on("click", function(event) {
 		//log response
 		console.log(data);
 		//event on close of message
+		location.reload();
 	});
+});
+
+//Click to view Saved E!
+$("#save").on("click", function(event) {
+	location.href=("/saved");
+});
+
+//Click to return to homepage
+$("#home").on("click", function(event) {
+	location.href=("/");
 });
 
 //Click to remove save
