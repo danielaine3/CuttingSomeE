@@ -1,4 +1,18 @@
 <div id="wrapper">
-	<div class="jumbotron">HOME JUMBOTRON</div>
-  	<div id="articles">SCRAPED ARTICLES DISPLAY HERE</div>
+  	<div id="articles">
+  		{{#each Headline}}
+	  		<article data-id="{{this._id}}">
+	  			<img src="{{this.pic}}">
+	  			<br>
+	  			<p class="title">{{this.title}}</p>
+	  			<br>
+	  			<a class="link" href="wwww.eonline.com" + this.pic>www.eonline.com/{{this.link}}</a>
+	  			<br>
+	  			<a><button class="save-it">Save Article</button></a>
+	  			<br><br>
+	  		</article>
+	  	{{/each}}
+  	</div>
+
+  	<div id="notes"></div>
 </div>

@@ -1,9 +1,9 @@
 header {
-	background-color: #5AC0C2;
+	background-color: #EEE851;
 	text-align:center;
-	color: #FFFFFF;
-	padding: 10px;
-	margin:auto;
+	color: #000000;
+	padding: 0px;
+	margin: auto;
 	width:100%;
 }
 
@@ -24,15 +24,28 @@ h2 {
 }
 
 .main-button {
-	background-color: #5AC0C2;
+	background-color: #4DA4C9;
 	font-size: 30px;
 	color: #FFFFFF;
 	padding: 30px;
 
 }
 
+#logo {
+	width: 150px;
+	height: 108px;
+	margin: none;
+	padding:none;
+}
+
 #cutE {
 	font-size: 30px;
+}
+
+.elogo {
+	width:17px;
+	height:53px;
+	margin:0;
 }
 
 ul {
@@ -61,8 +74,9 @@ li {
 }
 
 #articles {
-	
+	background-color: #FFFFFF;
 	padding:20px;
+
 }
 
 .title {
@@ -85,10 +99,10 @@ img {
 }
 
 footer{
-	background-color: #5AC0C2;
+	background-color: #EEE851;
 	text-align:center;
 	font-size: 20px;
-	color: #FFFFFF;
+	color: #000000;
 	padding: 30px;
 	margin:auto;
 	width:100%;

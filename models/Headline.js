@@ -9,7 +9,7 @@ var HeadlineSchema = new Schema({
   // `title` is required and of type String
   title: {
     type: String,
-    // required: true,
+    required: true,
     trim:true, 
     unique:true
   },
@@ -23,6 +23,11 @@ var HeadlineSchema = new Schema({
   pic: {
     type:String,
     trim:true
+  },
+  saved: {
+    type:Boolean,
+    required: true,
+    default: false
   },
   created: {
     type:Date,
