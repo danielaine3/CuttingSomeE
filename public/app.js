@@ -1,76 +1,174 @@
-$(document).on("click", "#scrape", function() {
-	console.log("scrapping");
-	$.get("api/scrape").then(function(res) {
-		console.log(res);
-		window.location.reload()
-	})
-});
-
-$(document).on("click", "#save", function() {
-	console.log("saving");
-});
-
-$(document).on("click", "headline", function() {
-	$(this).addClass('active').siblings().removeClass('active');
-
-	var thisId = $(this).attr('data-id');
-	console.log(thisId);
-
+//Click to scrape articles
+$("#scrape").on("click", function(event) {
+	//Before scrape, GET all articles currently in db
 	$.ajax({
 		method:"GET",
-		url:"/headlines/" + thisId
+		url:"/all"
 	})
-	// With that done, add the note information to the page
+	//with that done
 	.then(function(data) {
+		//log response
 		console.log(data);
-		//An input to enter a new title
-		$("#notes").append("<input id= 'titleinput' name='title' >");
-		//A textarea to add a new note body
-		$("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
-		//A button gto submit a new note, with the id of the headline saved
-		$("#notes").append("<button data-id='" + data._id + "' id=' savenote'>Save Note</button>");
 
-		//If there's a not ein the article
-		if (data.note) {
-			//Place the title of the note in the title input
-			$("#titleinput").val(data.note.title);
-			//Place the body of the note in the body textarea
-			#("bodyinput").val(data.note.body);
-		}
+		// $.ajax({
+		// 	method:"GET", 
+		// 	url:"/scrape"
+		// })
+		// //with that done
+		// .then(function(data) {
+		// 	//after scrape, GET all again 
+		// 	$.ajax({
+		// 		method:"GET",
+		// 		url:"/all"
+		// 	});
+			// .then(function(data) {
+			// 	//If using modal/alert
+			// })
+		// })
 	});
 });
 
 
+//Click to save headlines
+$("#save").on("click", function(event) {
+	//Grab id associated with article
+	var thisId = $(this).attr("data-id");
+	//Add message that save was successful
 
-//When you click on the savenotebutton
-$(document).on("click", "#savenote", function() {
-	//Grab id associated with the article from the submit button
-	var thisId = $(this).atter("data-id");
-
-	//Run a POST request to change the note using what's entered in the inputs
+	//update saved value to true
 	$.ajax({
-		method:"POST",
-		url:"/headlines/" + thisId,
-		data: {
-			//Value taken from title input
-			title:$("#titleinput").val(),
-			//Value taken from note textarea
-			body: $("bodyinput").val()
-		}
+		method."PUT",
+		url:"/saveheadline/" + thisId
 	})
-	//With that done
+	//with that done
 	.then(function(data) {
-		//Log response
+		//log response
 		console.log(data);
-		//empty the notes section
-		$("#notes").empty();
+		//event on close of message
 	});
-
-	//Also remove values entered in inputs and textarea
-	$("#titleinput").val("");
-	$("#bodyinput").val("");
-
 });
+
+//Click to remove save
+$(".remove-save").on("click", function(event) {
+	console.log("remove save clicked");
+	//Grabe id associated with headline
+	var thisId = $(this).attr("data-id");
+	//Add message that save was removed or to confirm remove
+	$.ajax({
+		method:"PUT",
+		url:"/unsaveheadline/" + thisId
+	})
+	//with that done
+	.then(function(data) {
+		//log response
+		console.log(data);
+		//reload page to get updated list of headlines
+		location.reload();
+	});
+});
+
+//Click to delete 
+$(".delete").on("click", function(event) {
+	console.log("delete clicked");
+	var thisId = $(this).data("id");
+	//confirm or success message
+	$.ajax("/headlines/" + id, {
+		type: "DELETE"
+	}).then(
+		function() {
+			console.log(id + " deleted.");
+			//reload page to get updated list of headlines
+			location.reload();
+		}
+	);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// $(document).on("click", "#scrape", function() {
+// 	console.log("scrapping");
+// 	$.get("api/scrape").then(function(res) {
+// 		console.log(res);
+// 		window.location.reload()
+// 	})
+// });
+
+// $(document).on("click", "#save", function() {
+// 	console.log("saving");
+// });
+
+// $(document).on("click", "headline", function() {
+// 	$(this).addClass('active').siblings().removeClass('active');
+
+// 	var thisId = $(this).attr('data-id');
+// 	console.log(thisId);
+
+// 	$.ajax({
+// 		method:"GET",
+// 		url:"/headlines/" + thisId
+// 	})
+// 	// With that done, add the note information to the page
+// 	.then(function(data) {
+// 		console.log(data);
+// 		//An input to enter a new title
+// 		$("#notes").append("<input id= 'titleinput' name='title' >");
+// 		//A textarea to add a new note body
+// 		$("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+// 		//A button gto submit a new note, with the id of the headline saved
+// 		$("#notes").append("<button data-id='" + data._id + "' id=' savenote'>Save Note</button>");
+
+// 		//If there's a not ein the article
+// 		if (data.note) {
+// 			//Place the title of the note in the title input
+// 			$("#titleinput").val(data.note.title);
+// 			//Place the body of the note in the body textarea
+// 			#("bodyinput").val(data.note.body);
+// 		}
+// 	});
+// });
+
+
+
+// //When you click on the savenotebutton
+// $(document).on("click", "#savenote", function() {
+// 	//Grab id associated with the article from the submit button
+// 	var thisId = $(this).atter("data-id");
+
+// 	//Run a POST request to change the note using what's entered in the inputs
+// 	$.ajax({
+// 		method:"POST",
+// 		url:"/headlines/" + thisId,
+// 		data: {
+// 			//Value taken from title input
+// 			title:$("#titleinput").val(),
+// 			//Value taken from note textarea
+// 			body: $("bodyinput").val()
+// 		}
+// 	})
+// 	//With that done
+// 	.then(function(data) {
+// 		//Log response
+// 		console.log(data);
+// 		//empty the notes section
+// 		$("#notes").empty();
+// 	});
+
+// 	//Also remove values entered in inputs and textarea
+// 	$("#titleinput").val("");
+// 	$("#bodyinput").val("");
+
+// });
 
 // $(document).on("click", "#saved", function(req, res) {
 // 	res.redirect("saved");
