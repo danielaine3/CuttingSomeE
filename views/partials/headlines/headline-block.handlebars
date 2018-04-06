@@ -1,0 +1,15 @@
+{{#each headline}}
+	<div class="card">
+		<div class="card-body">
+			<img src="{{this.pic}}">
+			<br>
+			<p class="title">{{this.title}}</p>
+			<br>
+			<a class="link" href="www.eonline.com" + {{this.link}}>www.eonline.com{{this.link}}</a>
+			<br>
+			<a><button class="save-it">Save Headline</button></a>
+			<a><button class="remove-save">Delete Headline</button></a>
+			<br><br>
+		</div>
+	</div>
+{{/each}}

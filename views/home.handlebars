@@ -1,18 +1,8 @@
 <div id="wrapper">
   	<div id="articles">
-  		{{#each Headline}}
-	  		<article data-id="{{this._id}}">
-	  			<img src="{{this.pic}}">
-	  			<br>
-	  			<p class="title">{{this.title}}</p>
-	  			<br>
-	  			<a class="link" href="wwww.eonline.com" + this.pic>www.eonline.com/{{this.link}}</a>
-	  			<br>
-	  			<a><button class="save-it">Save Headline</button></a>
-	  			<a><button class="remove-save">Delete Headline</button></a>
-	  			<br><br>
-	  		</article>
-	  	{{/each}}
+
+		{{> headlines/headline-block saved=false }}
+
   	</div>
 
   	<div id="notes"></div>

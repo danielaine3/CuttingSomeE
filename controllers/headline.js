@@ -11,26 +11,26 @@ module.exports = function(app) {
 	//Routes
 	//Display home.handlebars file
 	app.get("/", function(req, res) {
-		db.Headline.find({saved:false}, function(error, saved) {
+		db.Headline.find({saved: false}, function(error, headlines) {
 			//log errors
 			if(error) {
 				console.log(error);
 			}else {
 				res.render("home", {
-					headline: saved,
+					headline: headlines
 				});
 			}
 		});
 	});
 	//Display saved.handlebars
 	app.get("/saved", function(req, res) {
-		db.Headlines.find({saved: true}, function(error, saved) {
+		db.Headline.find({saved: true}, function(error, saved) {
 			//log errors
 			if(error) {
 				console.log(error);
 			}else {
 				res.render("saved", {
-					headline: saved,
+					headline: saved
 				});
 			}
 		});
@@ -58,7 +58,7 @@ module.exports = function(app) {
 
 	//Save/unsave function
 	function updateSave(saved, req, res) {
-		db.Headline.findOneAndUpdate({ _id: req.params.id }, { saved: saved}, 
+		db.Headlines.findOneAndUpdate({ _id: req.params.id }, { saved: saved}, 
 			function(err, data) {
 				if(err) {
 					console.log(err);
