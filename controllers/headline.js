@@ -11,13 +11,13 @@ module.exports = function(app) {
 	//Routes
 	//Display home.handlebars file
 	app.get("/", function(req, res) {
-		db.Headlines.find({saved:false}, function(error, saved) {
+		db.Headline.find({saved:false}, function(error, saved) {
 			//log errors
 			if(error) {
 				console.log(error);
 			}else {
 				res.render("home", {
-					headlines: saved,
+					headline: saved,
 				});
 			}
 		});
@@ -30,14 +30,14 @@ module.exports = function(app) {
 				console.log(error);
 			}else {
 				res.render("saved", {
-					headlines: saved,
+					headline: saved,
 				});
 			}
 		});
 	});
 	//Get all
 	app.get("/all", function(req, res) {
-		db.Headlines.find({}, function(error, all) {
+		db.Headline.find({}, function(error, all) {
 			//log errors
 			if(error) {
 				console.log(error);
@@ -48,7 +48,7 @@ module.exports = function(app) {
 	});
 	//Save headline
 	app.put("/saveheadline/:id", function(req,res) {
-		updatedSave(true, req, res);
+		updateSave(true, req, res);
 	});
 
 	//Unsave headline
@@ -58,7 +58,7 @@ module.exports = function(app) {
 
 	//Save/unsave function
 	function updateSave(saved, req, res) {
-		db.Headlines.findOneAndUpdate({ _id: req.params.id }, { saved: saved}, 
+		db.Headline.findOneAndUpdate({ _id: req.params.id }, { saved: saved}, 
 			function(err, data) {
 				if(err) {
 					console.log(err);
@@ -69,7 +69,7 @@ module.exports = function(app) {
 	}
 	//Delete article
 	app.delete("/headlines/:id", function(req, res) {
-		db.Headlines.deleteOne({ _id: req.params.id },
+		db.Headline.deleteOne({ _id: req.params.id },
 			function(err, data) {
 				if(err) {
 					console.log(err);

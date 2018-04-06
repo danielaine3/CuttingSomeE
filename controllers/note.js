@@ -59,7 +59,7 @@ module.exports = function(app) {
 			if(err) {
 				console.log(err);
 			}else {
-				res.send(text;)
+				res.send(text);
 			}
 		});
 	});

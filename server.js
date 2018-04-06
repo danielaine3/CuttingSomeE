@@ -1,6 +1,6 @@
 //Require NPM packages
 var express = require("express");
-// var mongojs = require("mongojs");
+var mongojs = require("mongojs");
 var bodyParser= require("body-parser");
 var mongoose = require("mongoose");
 var logger = require("morgan");
@@ -35,12 +35,10 @@ var exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main"}));
 app.set("view engine", "handlebars");
 
-// Import routes and give server access to them
-var routes =require("./routes/index.js");
-app.use(routes);
-
-// var scripts = require("./scripts/scrape.js");
-// app.use(scripts);
+// Import controllers and give server access to them
+require("./controllers/fetch.js")(app);
+require("./controllers/headline.js")(app);
+require("./controllers/note.js")(app);
 
 //If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
