@@ -98,6 +98,43 @@ img {
 	padding:50px;
 }
 
+.card-body{
+	width:90%;
+	margin:auto;
+	display:inline-block;
+	
+}
+
+.display{
+	width: 40%;
+	float:left;
+}
+
+#commentDiv {
+	
+	width:25%;
+	float:left;
+}
+
+.hidden {
+	visibility: hidden;
+}
+
+#comment-title {
+	width:200px;
+}
+
+#comment-body {
+	width: 200px;
+	height:100px;
+}
+
+.prior-comments {
+	width:25%;
+	float:left;
+	overflow: scroll;
+}
+
 footer{
 	background-color: #EEE851;
 	text-align:center;
@@ -108,5 +145,5 @@ footer{
 	width:100%;
 	bottom:0;
 	left:0;
-	clear:both
+	clear:both;
 }

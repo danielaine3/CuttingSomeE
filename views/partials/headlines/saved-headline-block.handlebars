@@ -4,17 +4,30 @@
 	</ul>
 </div>
 {{#each headline}}
-	<div class="card">
-		<div class="card-body">
+	<div class="card-body">
+		<div class="display">
 			<img src="{{this.pic}}">
 			<br>
 			<p class="title">{{this.title}}</p>
 			<br>
-			<a class="link" href="www.eonline.com" + {{this.link}}>www.eonline.com{{this.link}}</a>
+			<a class="link" href="www.eonline.com{{this.link}}"><button>Read More</button></a>
 			<br>
 			<a><button class="remove-save" data-id="{{this._id}}">Delete Headline</button></a>
-			<a><button class="remove-save" data-id="{{this._id}}">Comment</button></a>
-			<br><br>
+			<a><button class="add-comment" data-id="{{this._id}}">Comment</button></a>
 		</div>
+		<div class="commentDiv">
+			<div class="modal-header">Leave a Comment</div>
+			<form class="form">
+				<textarea id="comment-title" placeholder="Title"></textarea>
+				<br>
+				<textarea id="comment-body" placeholder="Comment"></textarea>
+				<br>
+				<button id="save-comment">Submit</button>
+				<button id="close">Close</button>
+			</form>
+		</div>
+		<hr>
+		<div class="prior-comments"></div>
+		{{!-- <hr> --}}
 	</div>
 {{/each}}

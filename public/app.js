@@ -63,6 +63,10 @@ $("#home").on("click", function(event) {
 	location.href=("/");
 });
 
+$("#view-all").on("click", function(event) {
+	location.href=("/all");
+})
+
 //Click to remove save
 $(".remove-save").on("click", function(event) {
 	console.log("remove save clicked");
@@ -99,9 +103,11 @@ $(".delete").on("click", function(event) {
 });
 
 //Add note
-$(".add-note").on("click", function(event) {
+$(".add-comment").on("click", function(event) {
 	//save id from the leave comment button
 	var thisId = $(this).data("id");
+	// $("#commentDiv" +thisId).removeClass("hidden");
+ 
 	$.ajax({
 		method: "GET",
 		url:"/notes/" + thisId
@@ -109,66 +115,99 @@ $(".add-note").on("click", function(event) {
 	//with that done, add comment to page
 	.then(function(data) {
 		console.log(data);
+		// $(this).parent(".display").sibling(".commentDiv").removeClass("hidden");
+		
 		//Title of article
-		$("#note-title").text("Leave a comment");
-		//Button to submit, with id of article saved to it
-		var submitNoteBtn = $("<button data-id =" + thisId);
-		submitNoteBtn.data("modal").text("Add comment.");
-		$(".note-footer").append(submitNoteBtn);
+		// $("#note-title").text("Leave a comment");
+		// //Button to submit, with id of article saved to it
+		// var submitNoteBtn = $("<button data-id =" + thisId);
+		// submitNoteBtn.data("modal").text("Add comment.");
+		// $(".note-footer").append(submitNoteBtn);
 
-		//Add heading to article commments section
-		var commentHead = $("<h4>");
-		commentHead.text("Prior Commments");
-		//If at least one comment, show comments to user
-		$("#comments").append(commentHead);
-		if (data.length) {
-			console.log(data);
-			//Place the notes in the comment section
-			for (var i =0; i < data.length; i++) {
-				var commentDiv = $("<div>");
-				var commentNote = $("<p>");
-				commentNote.text(data[i].body);
-				commentDiv.append(commentNote);
-				$("#comments").append(commentDiv);
-				//Create delete button for comments
-				var deleteComment = $("<button>");
-				deleteComment.text(Delete). attr("id", data[i]._id);
-				commentDiv.append(deleteComment);
-			}
-		}else {
-			var noComments = $("<h4>");
-			noCommments.text("No comments have been posted yet.")
-		}
+		// //Add heading to article commments section
+		// var commentHead = $("<h4>");
+		// commentHead.text("Prior Commments");
+		// //If at least one comment, show comments to user
+		// $(".prior-comments").append(commentHead);
+		// if (data.length) {
+		// 	console.log(data);
+		// 	//Place the notes in the comment section
+		// 	for (var i =0; i < data.length; i++) {
+		// 		var commentDiv = $("<div>");
+		// 		var commentNote = $("<p>");
+		// 		commentNote.text(data[i].body);
+		// 		commentDiv.append(commentNote);
+		// 		$(".prior-comments").append(commentDiv);
+		// 		//Create delete button for comments
+		// 		var deleteComment = $("<button>");
+		// 		deleteComment.text(Delete). attr("id", data[i]._id);
+		// 		commentDiv.append(deleteComment);
+		// 	}
+		// }else {
+		// 	var noComments = $("<h4>");
+		// 	noCommments.text("No prior comments to show.");
+		// 	$(".prior-comments").append(noComments);
+		// }
 	});
 });
 
 //Save comment button
-$("#save-comment").on ("click", function(event) {
+$("#save-comment").on("click", function(event) {
+	event.preventDefault();
 	//get headline id
 	var thisId = $(this).attr("data-id");
 	//if comment empty alert user
-	if(!$("#commentbody").val()) {
+	if(!$("#comment-body").val()) {
 		var commentErr = $("<p>");
 		commentErr.text("You must enter a comment to submit.");
-		$(".form-group").append(commmentErr);
+		$(".form").append(commentErr);
 	}else {
 		$.ajax({
 			method:"POST", 
 			url: "/notes",
 			data: {
-				body: $("#commentbody").val(), 
+				title: $("#comment-title").val(),
+				body: $("#comment-body").val(), 
 				headline: thisId
+			}
+		}).then (function(data) {
+			var commentHead = $("<h4>");
+			commentHead.text("Prior Commments");
+			$(".prior-comments").append(commentHead);
+			//If at least one comment, show comments to user
+			if (data.length) {
+				console.log(data);
+				//Place the notes in the comment section
+				for (var i = 0; i < data.length; i++) {
+					var commentBox = $("<div>");
+					var commentNote = $("<p>");
+					commentNote.text(data[i].body);
+					commentBox.append(commentNote);
+					$(".prior-comments").append(commentBox);
+					//Create delete button for comments
+					var deleteComment = $("<button>");
+					deleteComment.text(Delete). attr("id", data[i]._id);
+					commentBox.append(deleteComment);
+				}
+			}else {
+				var noComments = $("<h4>");
+				noComments.text("No prior comments to show.");
+				$(".prior-comments").append(noComments);
 			}
 		}).done(function(data) {
 			//log response
 			console.log(data);
 			//empty values on submit
-			// $("#commentbody").val("");
-			// $("#comments").empty();
-			// $
-
+			$("#comment-body").val("");
+			$("#comment-title").val("");
 		});
 	}
+});
+
+//hide comments box
+$("#close").on("click", function(event) {
+	event.preventDefault();
+	$(".commentDiv").addClass("hidden");
 });
 
 //Delete Comment
