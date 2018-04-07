@@ -63,8 +63,8 @@ $("#home").on("click", function(event) {
 	location.href=("/");
 });
 
-$("#view-all").on("click", function(event) {
-	location.href=("/all");
+$(".link").on("click", function(event) {
+	window.location = (this.href);
 })
 
 //Click to remove save
@@ -106,7 +106,13 @@ $(".delete").on("click", function(event) {
 $(".add-comment").on("click", function(event) {
 	//save id from the leave comment button
 	var thisId = $(this).data("id");
+	// $(this).parent(".display").siblings(".commentDiv").removeClass("hidden");
+	// sibling= test.sibling(".commentDiv");
+	// sibling.removeClass("hidden");
+
+	//unhides all commentDivs not just the one
 	$(".commentDiv").removeClass("hidden");
+	// $(".modal-header").parent(".commentDiv").removeClass("hidden");
  
 	$.ajax({
 		method: "GET",
