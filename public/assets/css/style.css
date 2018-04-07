@@ -89,8 +89,11 @@ img {
 	height: 150px;
 }
 
-.link {
-	
+button {
+	color:#FFFFFF;
+	padding:10px;
+	margin:2px;
+	background-color: #E8367F;
 }
 
 #notes {

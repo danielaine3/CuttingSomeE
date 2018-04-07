@@ -70,7 +70,7 @@ $("#view-all").on("click", function(event) {
 //Click to remove save
 $(".remove-save").on("click", function(event) {
 	console.log("remove save clicked");
-	//Grabe id associated with headline
+	//Grab id associated with headline
 	var thisId = $(this).attr("data-id");
 	//Add message that save was removed or to confirm remove
 	$.ajax({
@@ -106,7 +106,7 @@ $(".delete").on("click", function(event) {
 $(".add-comment").on("click", function(event) {
 	//save id from the leave comment button
 	var thisId = $(this).data("id");
-	// $("#commentDiv" +thisId).removeClass("hidden");
+	$(".commentDiv").removeClass("hidden");
  
 	$.ajax({
 		method: "GET",
@@ -171,7 +171,8 @@ $("#save-comment").on("click", function(event) {
 				headline: thisId
 			}
 		}).then (function(data) {
-			var commentHead = $("<h4>");
+			$(".prior-comments").empty();
+			var commentHead = $("<h3>");
 			commentHead.text("Prior Commments");
 			$(".prior-comments").append(commentHead);
 			//If at least one comment, show comments to user
@@ -208,6 +209,7 @@ $("#save-comment").on("click", function(event) {
 $("#close").on("click", function(event) {
 	event.preventDefault();
 	$(".commentDiv").addClass("hidden");
+	$(".prior-comments").empty();
 });
 
 //Delete Comment
