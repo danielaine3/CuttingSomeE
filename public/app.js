@@ -121,9 +121,10 @@ $(".add-comment").on("click", function(event) {
 		// Title of article
 		$("#comment-title").text("Leave a comment");
 		//Button to submit, with id of article saved to it
-		var submitNoteBtn = $("<button data-id =" + thisId);
-		submitNoteBtn.addClass("btn btn-secondary").data("dimiss", "modal").text("Add comment.");
-		$(".modal-footer").append(submitNoteBtn);
+		var submitNoteBtn = $("<button>");
+		submitNoteBtn.addClass("save-comment").data("dismiss", "modal").text("ADD COMMENT");
+		submitNoteBtn.attr("data-id", thisId);
+		$(".modal-footer").prepend(submitNoteBtn);
 
 		//Add heading to article commments section
 		var commentHead = $("<h4>");
@@ -146,15 +147,16 @@ $(".add-comment").on("click", function(event) {
 			}
 		}else {
 			var noComments = $("<h4>");
-			noCommments.text("No prior comments to show.");
+			noComments.text("No prior comments to show.");
 			$(".prior-comments").append(noComments);
 		}
 	});
 });
 
 //Save comment button
-$("#save-comment").on("click", function(event) {
-	event.preventDefault();
+$(document).on("click", ".save-comment", function(){
+	console.log("CLICKED!");
+	// event.preventDefault();
 	//get headline id
 	var thisId = $(this).attr("data-id");
 	//if comment empty alert user
@@ -182,6 +184,7 @@ $("#save-comment").on("click", function(event) {
 				//Place the notes in the comment section
 				for (var i = 0; i < data.length; i++) {
 					var commentBox = $("<div>");
+					commentBox.addClass("comment-box")
 					var commentNote = $("<p>");
 					commentNote.text(data[i].body);
 					commentBox.append(commentNote);
@@ -202,7 +205,13 @@ $("#save-comment").on("click", function(event) {
 			//empty values on submit
 			$("#comment-body").val("");
 			$("#comment-title").val("");
-		});
+			$(".prior-comments").val("");
+			$("#comment-modal").modal("toggle");
+			$(".comment-box").empty();
+			$(".save-comment").remove();
+			$("#comment-modal").modal("hide");
+			window.location = "/saved"
+		});;
 	}
 });
 
