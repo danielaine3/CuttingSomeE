@@ -106,7 +106,6 @@ $(".delete").on("click", function(event) {
 $(".add-comment").on("click", function(event) {
 	$(".prior-comments").empty();
 	$(".save-comment").remove();
-	// $("")
 	//save id from the leave comment button
 	var thisId = $(this).data("id");
 	//Show add comment modal
@@ -118,7 +117,6 @@ $(".add-comment").on("click", function(event) {
 	})
 	//with that done, add comments to page
 	.then(function(data) {
-		console.log(data);
 		// Title of article
 		$("#comment-title").text("Leave a comment");
 		//Button to submit, with id of article saved to it
@@ -132,8 +130,7 @@ $(".add-comment").on("click", function(event) {
 		commentHead.text("Prior Commments");
 		//If at least one comment, show comments to user
 		$("#prior-comments").append(commentHead);
-		if (data.length > 0) {
-			console.log(data);
+		if (data.length) {
 			//Place the notes in the comment section
 			for (var i =0; i < data.length; i++) {
 				var commentDiv = $("<div>");
@@ -144,11 +141,11 @@ $(".add-comment").on("click", function(event) {
 				$("#prior-comments").append(commentDiv);
 				//Create delete button for comments
 				var deleteComment = $("<button>");
-				deleteComment.addClass(".delete-comment").text("Delete").attr("id", data[i]._id);
+				deleteComment.addClass("delete-comment").text("Delete").attr("id", data[i]._id);
 				commentDiv.append(deleteComment);
 			}
 		}else {
-			var noComments = $("<h4>");
+			var noComments = $("<p>");
 			noComments.text("No prior comments to show.");
 			$("#prior-comments").append(noComments);
 		}
@@ -157,13 +154,13 @@ $(".add-comment").on("click", function(event) {
 
 //Save comment button
 $(document).on("click", ".save-comment", function(){
-	console.log("CLICKED!");
 	// event.preventDefault();
 	//get headline id
 	var thisId = $(this).attr("data-id");
 	//if comment empty alert user
 	if(!$("#comment-body").val()) {
 		var commentErr = $("<p>");
+		commentErr.attr("id", "commentErr");
 		commentErr.text("You must enter a comment to submit.");
 		$(".form").append(commentErr);
 	}else {
@@ -179,9 +176,9 @@ $(document).on("click", ".save-comment", function(){
 			console.log(data);
 			//empty values on submit
 			$("#comment-body").val("");
-			$("#comment-title").val("");
 			$(".prior-comments").val("");
-			$("#comment-modal").modal("hide");
+			$("#comment-modal").modal("toggle");
+			$("#commentErr").remove();
 			$(".comment-box").empty();
 			$(".save-comment").remove();
 			$("#comment-modal").modal("hide");
@@ -191,20 +188,19 @@ $(document).on("click", ".save-comment", function(){
 });
 
 //Delete Comment
-$(".delete-comment").on("click", function(event) {
+$(document).on("click", ".delete-comment", function(event) {
 	event.preventDefault();
 	console.log("delete comment button clicked!");
 	var id = $(this).attr("id");
 	console.log(id);
-	//Add confirm delete
 
 	$.ajax("/notes/" + id, {
-		type:"DELETE", 
+		type:"DELETE" 
 	}).then(
 		function() {
 			console.log("deleted comment", id);
 			//reload page to get updated list of saved comments
-			locaiton.reload();
+			location.reload();
 		}
 	);
 });
