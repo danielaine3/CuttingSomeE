@@ -1,19 +1,17 @@
-<div id="navbar">
+<div class="sticky-top" id="navbar">
 	<ul>
-		<li><button class="main-button" id="save">SAVED <img class="elogo" src="./assets/images/E!.png"></button></li>
-		<li><button class="main-button" id="scrape">CUT NEW<img class="elogo" src="./assets/images/E!.png"></button></li>
+		<li><button class="main-button" id="save">SAVE<img class="elogo" src="./assets/images/E!.png">D</button></li>
+		<li><button class="main-button" id="scrape">CUT NE<img class="elogo" src="./assets/images/E!.png">W</button></li>
 	</ul>
 </div>
 
 {{#each headline}}
-	<div class="card">
-		<div class="card-body">
+	<div class="card row mx-auto">
+		<div class="display col-sm-12 mx-auto">
+			<h2 class="title">{{this.title}}</h2>
 			<img src="{{this.pic}}">
 			<br>
-			<p class="title">{{this.title}}</p>
-			<br>
 			<a class= "link" href="http://www.eonline.com{{this.link}}"><button>READ MORE</button></a>
-			<br>
 			<a><button class="save-it" data-id="{{this._id}}">SAVE HEADLINE</button></a>
 			<br><br>
 		</div>

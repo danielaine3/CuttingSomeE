@@ -1,14 +1,14 @@
+body {
+	font-family: 'Pragati Narrow', sans-serif;
+}
 header {
 	background-color: #EEE851;
 	text-align:center;
+	font-size: 70px;
 	color: #000000;
 	padding: 0px;
 	margin: auto;
 	width:100%;
-}
-
-h1 {
-	font-size: 70px;
 }
 
 h2 {
@@ -16,6 +16,7 @@ h2 {
 }
 
 #navbar {
+	background-color: #FFFFFF;
 	width: 100%;
 	margin: 0;
 	margin-top:10px;
@@ -68,11 +69,6 @@ li {
 	width:100%;
 }
 
-.jumbotron {
-	display:block;
-	padding:50px;
-}
-
 #articles {
 	background-color: #FFFFFF;
 	padding:20px;
@@ -80,7 +76,7 @@ li {
 }
 
 .title {
-	font-size: 20px;
+	font-size: 30px;
 }
 
 img {
@@ -111,6 +107,7 @@ button {
 .display{
 	width: 40%;
 	float:left;
+	text-align:center;
 }
 
 #comment-title {
@@ -136,6 +133,7 @@ footer{
 	padding: 30px;
 	margin:auto;
 	width:100%;
+	position:relative;
 	bottom:0;
 	left:0;
 	clear:both;

@@ -118,7 +118,7 @@ $(".add-comment").on("click", function(event) {
 	//with that done, add comments to page
 	.then(function(data) {
 		// Title of article
-		$("#comment-title").text("Leave a comment");
+		$("#comment-title").text("POST A COMMENT");
 		//Button to submit, with id of article saved to it
 		var submitNoteBtn = $("<button>");
 		submitNoteBtn.addClass("save-comment").data("dismiss", "modal").text("ADD COMMENT");
@@ -127,7 +127,7 @@ $(".add-comment").on("click", function(event) {
 
 		//Add heading to article commments section
 		var commentHead = $("<h4>");
-		commentHead.text("Prior Commments");
+		commentHead.text("PRIOR COMMENTS");
 		//If at least one comment, show comments to user
 		$("#prior-comments").append(commentHead);
 		if (data.length) {

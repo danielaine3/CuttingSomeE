@@ -1,22 +1,20 @@
-<div id="navbar">
+<div class="sticky-top" id="navbar">
 	<ul>
 		<li><button class="main-button" id="home">HOM<img class="elogo" src="./assets/images/E!.png"></button></li>
 	</ul>
 </div>
 {{#each headline}}
-	<div class="card-body">
-		<div class="display">
+	<div class="card row mx-auto">
+		<div class="display col-sm-12 mx-auto">
+			<h2 class="title">{{this.title}}</h2>		
 			<img src="{{this.pic}}">
-			<br>
-			<p class="title">{{this.title}}</p>
 			<br>
 			<a class= "link" href="http://www.eonline.com{{this.link}}"><button>READ MORE</button></a>
 			<br>
 			<a><button class="remove-save" data-id="{{this._id}}">REMOVE FROM SAVED</button></a>
 			<a><button class="add-comment" data-id="{{this._id}}">COMMENT</button></a>
+			<br><br>
 		</div>
-		<hr>
-		<div class="prior-comments"></div>
 	</div>
 {{/each}}
 
