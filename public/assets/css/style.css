@@ -113,16 +113,6 @@ button {
 	float:left;
 }
 
-#commentDiv {
-	
-	width:25%;
-	float:left;
-}
-
-.hidden {
-	visibility: hidden;
-}
-
 #comment-title {
 	width:200px;
 }

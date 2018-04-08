@@ -15,19 +15,10 @@
 			<a><button class="remove-save" data-id="{{this._id}}">REMOVE FROM SAVED</button></a>
 			<a><button class="add-comment" data-id="{{this._id}}">COMMENT</button></a>
 		</div>
-		<div class="commentDiv hidden">
-			<div class="modal-header">Leave a Comment</div>
-			<form class="form">
-				<textarea id="comment-title" placeholder="Title"></textarea>
-				<br>
-				<textarea id="comment-body" placeholder="Comment"></textarea>
-				<br>
-				<button id="save-comment">Submit</button>
-				<button id="close">Close</button>
-			</form>
-		</div>
 		<hr>
 		<div class="prior-comments"></div>
-		{{!-- <hr> --}}
 	</div>
 {{/each}}
+
+<!--Comments Modal-->
+{{> headlines/comment-modal}}

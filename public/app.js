@@ -106,54 +106,49 @@ $(".delete").on("click", function(event) {
 $(".add-comment").on("click", function(event) {
 	//save id from the leave comment button
 	var thisId = $(this).data("id");
-	// $(this).parent(".display").siblings(".commentDiv").removeClass("hidden");
-	// sibling= test.sibling(".commentDiv");
-	// sibling.removeClass("hidden");
-
-	//unhides all commentDivs not just the one
-	$(".commentDiv").removeClass("hidden");
-	// $(".modal-header").parent(".commentDiv").removeClass("hidden");
+	//Show add comment modal
+	$("#comment-modal").modal("show");
  
 	$.ajax({
 		method: "GET",
 		url:"/notes/" + thisId
 	})
-	//with that done, add comment to page
+	//with that done, add comments to page
 	.then(function(data) {
 		console.log(data);
-		// $(this).parent(".display").sibling(".commentDiv").removeClass("hidden");
 		
-		//Title of article
-		// $("#note-title").text("Leave a comment");
-		// //Button to submit, with id of article saved to it
-		// var submitNoteBtn = $("<button data-id =" + thisId);
-		// submitNoteBtn.data("modal").text("Add comment.");
-		// $(".note-footer").append(submitNoteBtn);
+		
+		// Title of article
+		$("#comment-title").text("Leave a comment");
+		//Button to submit, with id of article saved to it
+		var submitNoteBtn = $("<button data-id =" + thisId);
+		submitNoteBtn.addClass("btn btn-secondary").data("dimiss", "modal").text("Add comment.");
+		$(".modal-footer").append(submitNoteBtn);
 
-		// //Add heading to article commments section
-		// var commentHead = $("<h4>");
-		// commentHead.text("Prior Commments");
-		// //If at least one comment, show comments to user
-		// $(".prior-comments").append(commentHead);
-		// if (data.length) {
-		// 	console.log(data);
-		// 	//Place the notes in the comment section
-		// 	for (var i =0; i < data.length; i++) {
-		// 		var commentDiv = $("<div>");
-		// 		var commentNote = $("<p>");
-		// 		commentNote.text(data[i].body);
-		// 		commentDiv.append(commentNote);
-		// 		$(".prior-comments").append(commentDiv);
-		// 		//Create delete button for comments
-		// 		var deleteComment = $("<button>");
-		// 		deleteComment.text(Delete). attr("id", data[i]._id);
-		// 		commentDiv.append(deleteComment);
-		// 	}
-		// }else {
-		// 	var noComments = $("<h4>");
-		// 	noCommments.text("No prior comments to show.");
-		// 	$(".prior-comments").append(noComments);
-		// }
+		//Add heading to article commments section
+		var commentHead = $("<h4>");
+		commentHead.text("Prior Commments");
+		//If at least one comment, show comments to user
+		$(".prior-comments").append(commentHead);
+		if (data.length) {
+			console.log(data);
+			//Place the notes in the comment section
+			for (var i =0; i < data.length; i++) {
+				var commentDiv = $("<div>");
+				var commentNote = $("<p>");
+				commentNote.text(data[i].body);
+				commentDiv.append(commentNote);
+				$(".prior-comments").append(commentDiv);
+				//Create delete button for comments
+				var deleteComment = $("<button>");
+				deleteComment.text(Delete). attr("id", data[i]._id);
+				commentDiv.append(deleteComment);
+			}
+		}else {
+			var noComments = $("<h4>");
+			noCommments.text("No prior comments to show.");
+			$(".prior-comments").append(noComments);
+		}
 	});
 });
 
