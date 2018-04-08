@@ -104,6 +104,9 @@ $(".delete").on("click", function(event) {
 
 //Add note
 $(".add-comment").on("click", function(event) {
+	$(".prior-comments").empty();
+	$(".save-comment").remove();
+	// $("")
 	//save id from the leave comment button
 	var thisId = $(this).data("id");
 	//Show add comment modal
@@ -116,8 +119,6 @@ $(".add-comment").on("click", function(event) {
 	//with that done, add comments to page
 	.then(function(data) {
 		console.log(data);
-		
-		
 		// Title of article
 		$("#comment-title").text("Leave a comment");
 		//Button to submit, with id of article saved to it
@@ -130,25 +131,26 @@ $(".add-comment").on("click", function(event) {
 		var commentHead = $("<h4>");
 		commentHead.text("Prior Commments");
 		//If at least one comment, show comments to user
-		$(".prior-comments").append(commentHead);
-		if (data.length) {
+		$("#prior-comments").append(commentHead);
+		if (data.length > 0) {
 			console.log(data);
 			//Place the notes in the comment section
 			for (var i =0; i < data.length; i++) {
 				var commentDiv = $("<div>");
+				commentDiv.addClass("comment-div");
 				var commentNote = $("<p>");
 				commentNote.text(data[i].body);
-				commentDiv.append(commentNote);
-				$(".prior-comments").append(commentDiv);
+				$("#prior-comments").append(commentNote);
+				$("#prior-comments").append(commentDiv);
 				//Create delete button for comments
 				var deleteComment = $("<button>");
-				deleteComment.text(Delete). attr("id", data[i]._id);
+				deleteComment.addClass(".delete-comment").text("Delete").attr("id", data[i]._id);
 				commentDiv.append(deleteComment);
 			}
 		}else {
 			var noComments = $("<h4>");
 			noComments.text("No prior comments to show.");
-			$(".prior-comments").append(noComments);
+			$("#prior-comments").append(noComments);
 		}
 	});
 });
@@ -169,35 +171,8 @@ $(document).on("click", ".save-comment", function(){
 			method:"POST", 
 			url: "/notes",
 			data: {
-				title: $("#comment-title").val(),
 				body: $("#comment-body").val(), 
 				headline: thisId
-			}
-		}).then (function(data) {
-			$(".prior-comments").empty();
-			var commentHead = $("<h3>");
-			commentHead.text("Prior Commments");
-			$(".prior-comments").append(commentHead);
-			//If at least one comment, show comments to user
-			if (data.length) {
-				console.log(data);
-				//Place the notes in the comment section
-				for (var i = 0; i < data.length; i++) {
-					var commentBox = $("<div>");
-					commentBox.addClass("comment-box")
-					var commentNote = $("<p>");
-					commentNote.text(data[i].body);
-					commentBox.append(commentNote);
-					$(".prior-comments").append(commentBox);
-					//Create delete button for comments
-					var deleteComment = $("<button>");
-					deleteComment.text(Delete). attr("id", data[i]._id);
-					commentBox.append(deleteComment);
-				}
-			}else {
-				var noComments = $("<h4>");
-				noComments.text("No prior comments to show.");
-				$(".prior-comments").append(noComments);
 			}
 		}).done(function(data) {
 			//log response
@@ -206,20 +181,13 @@ $(document).on("click", ".save-comment", function(){
 			$("#comment-body").val("");
 			$("#comment-title").val("");
 			$(".prior-comments").val("");
-			$("#comment-modal").modal("toggle");
+			$("#comment-modal").modal("hide");
 			$(".comment-box").empty();
 			$(".save-comment").remove();
 			$("#comment-modal").modal("hide");
 			window.location = "/saved"
 		});;
 	}
-});
-
-//hide comments box
-$("#close").on("click", function(event) {
-	event.preventDefault();
-	$(".commentDiv").addClass("hidden");
-	$(".prior-comments").empty();
 });
 
 //Delete Comment
