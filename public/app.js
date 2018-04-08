@@ -187,6 +187,11 @@ $(document).on("click", ".save-comment", function(){
 	}
 });
 
+$(document).on("click", ".closed", function(event) {
+	console.log("close clicked!");
+	$("#prior-comments").empty();
+})
+
 //Delete Comment
 $(document).on("click", ".delete-comment", function(event) {
 	event.preventDefault();
