@@ -1,11 +1,9 @@
 # CUTTING SOME E!News
 ## News Scraping App
 
-## Table of Contents
-*
 ## How It Works
 ## 1. Cut new E!
-Click the "Cute New" button to scrape the E! News website for new articles.
+Click the "Cut New" button to scrape the E! News website for new articles.
 ![ScreenShot](public/assets/images/HomeScreen.jpg)
 Once the Headlines appear you can:
 1. Click the "Read More" button to be directed to the full article on the E! New website
